@@ -1,0 +1,135 @@
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<script src="//code.jquery.com/jquery-1.12.0.min.js"></script>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+<!-- Latest compiled and minified JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+<script language="JavaScript" type="text/javascript">
+function update(theform) {
+	with(Math){
+
+		d=0;
+		e=0;
+		units2 = "m&sup3;";
+		units3 = 165;
+		var a=parseFloat(theform.mylength.value);
+		var b=parseFloat(theform.mywidth.value);
+		var c=parseFloat(theform.myheight.value);
+		var d=parseFloat(theform.mypeople.value);
+		var e=parseFloat(theform.mypcs.value);
+
+		tmp2 = (d + e) * 400;
+		tmp2 = Math.floor((tmp2 * 100) +.5)/100;
+		tmp = a * b * c;
+		tmp = Math.floor((tmp * 100) +.5)/100;
+		document.getElementById("cubic").innerHTML = tmp + " " + units2;
+		tmp = tmp * units3;
+		tmp = tmp + tmp2;
+		tmp = Math.floor((tmp * 100) +.5)/100;
+		if (theform.shaded.checked==true && theform.sunny.checked==false) {	tmp = tmp - ((tmp / 100) * 10); }
+		if (theform.sunny.checked==true && theform.shaded.checked==false) {	tmp = tmp + ((tmp / 100) * 10); }
+		if (theform.sunny.checked==true && theform.shaded.checked==true) {	tmp = tmp; }
+		if (theform.kitchen.checked==true) {	tmp = tmp + 3000; }
+		document.getElementById("cooling").innerHTML = tmp + " BTU / " + (tmp / 4) + " Frigorías hora";
+	}
+}
+
+function reemplaza(txt)
+{
+	txt.value = txt.value.replace(',', '.');
+}
+		
+</script>
+</head>
+<body>
+<div class = "container">
+	<div class="row">
+		<form class = "" action="" method="post" name="form1" id="form1">
+						
+									
+			<div class="form-group"> 
+				<label for="exampleInputEmail1">Largo</label> 
+				<input id="mylength"  name="mylength" class="form-control" type="text" placeholder="Largo" size="4" onblur="reemplaza(this)"> 
+				&nbsp;metros
+			</div>
+			
+			<div class="form-group"> 
+				<label for="exampleInputEmail1">Ancho</label> 
+				<input id="mywidth"  name="mywidth" class="form-control" type="text" placeholder="Ancho" size="4" onblur="reemplaza(this)"> 
+				&nbsp;metros
+			</div>
+			
+			<div class="form-group"> 
+				<label for="exampleInputEmail1">Alto</label> 
+				<input id="myheight"  name="myheight" class="form-control" type="text" placeholder="Alto" size="4" onblur="reemplaza(this)"> 
+				&nbsp;metros
+			</div>
+			
+			<div class="form-group"> 
+				<label for="exampleInputEmail1">Número máximo de ocupantes</label> 
+				<input id="mypeople"  name="mypeople" class="form-control" type="text" placeholder="Alto" size="4" onblur="reemplaza(this)"> 
+				&nbsp;personas
+			</div>
+			
+			<div class="form-group"> 
+				<label for="exampleInputEmail1">Nº de Equipos (Ordenadores, impresoras...)</label> 
+				<input id="mypcs"  name="mypcs" class="form-control" type="text" placeholder="Nº de Equipos" size="4" > 
+				&nbsp;unidades
+			</div>
+			
+			
+			<div class="checkbox"> 
+				<label> 
+					<input id="shaded" value="checkbox" name="shaded" type="checkbox"> Estancia más bien sombría
+				</label> 
+			</div>
+			
+			<div class="checkbox"> 
+				<label> 
+					<input id="sunny" value="checkbox" name="sunny" type="checkbox"> Estancia más bien soleada
+				</label> 
+			</div>
+			
+			<div class="checkbox"> 
+				<label> 
+					<input id="kitchen" value="checkbox" name="kitchen" type="checkbox"> Usada como cocina
+				</label> 
+			</div>
+			
+			<button type="button" onclick="update(this.form)" class="btn btn-default">Submit</button>
+
+
+		</form>
+
+		<div class="row">
+			<div class="row show-grid"> 
+				<div class="col-md-6">Volúmen Cúbico Total:</div> 
+				<div class="col-md-6"><div class="cubic" id="cubic">0 m³</div></div> 
+			</div>
+			<div class="row show-grid"> 
+				<div class="col-md-6">Potencia aproximada requerida:</div> 
+				<div class="col-md-6"><div class="cooling" id="cooling">0 BTU / 0 Frigorías hora</div></div> 
+			</div>
+		</div>
+		Lista de clasificación de BTU del aire acondicionado<br>
+
+		• 9,000 BTU<br>
+
+		• 12,000 BTU<br>
+
+		• 15,000 BTU<br>
+
+		• 18,000 BTU<br>
+
+		• 21,000 BTU<br>
+
+		• 24,000 BTU<br>
+					
+	</div>
+</div>
+</body>
+</html>
